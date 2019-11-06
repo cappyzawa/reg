@@ -119,13 +119,13 @@ func (a *authService) Request(username, password string) (*http.Request, error) 
 	fmt.Println()
 	fmt.Fprintf(os.Stdout, "URL: %s\n", a.Realm.String())
 	q := a.Realm.Query()
-	fmt.Fprintf(os.Stdout, "query: %v\n", a.Realm.Query())
 	q.Set("service", a.Service)
 	for _, s := range a.Scope {
 		q.Set("scope", s)
 	}
 	//	q.Set("scope", "repository:r.j3ss.co/htop:push,pull")
 	a.Realm.RawQuery = q.Encode()
+	fmt.Fprintf(os.Stdout, "query: %s\n", q.Encode())
 
 	req, err := http.NewRequest("GET", a.Realm.String(), nil)
 
