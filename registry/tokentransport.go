@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"regexp"
 )
 
@@ -29,6 +30,7 @@ func (t *TokenTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	}
 
 	authService, err := isTokenDemand(resp)
+	fmt.Fprintf(os.Stdout, "%#v\n", authService)
 	if err != nil {
 		resp.Body.Close()
 		return nil, err
