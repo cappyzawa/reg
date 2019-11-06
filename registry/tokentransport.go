@@ -85,7 +85,11 @@ func (t *TokenTransport) auth(ctx context.Context, authService *authService) (st
 		Transport: t.Transport,
 	}
 
-	resp, err := c.Do(authReq.WithContext(ctx))
+	reqreq := authReq.WithContext(ctx)
+	fmt.Println()
+	fmt.Fprintf(os.Stdout, "%#v\n", reqreq)
+	fmt.Println()
+	resp, err := c.Do(reqreq)
 	if err != nil {
 		return "", nil, err
 	}
