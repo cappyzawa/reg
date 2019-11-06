@@ -85,11 +85,7 @@ func (t *TokenTransport) auth(ctx context.Context, authService *authService) (st
 		Transport: t.Transport,
 	}
 
-	reqreq := authReq.WithContext(ctx)
-	fmt.Println()
-	fmt.Fprintf(os.Stdout, "%#v\n", reqreq)
-	fmt.Println()
-	resp, err := c.Do(reqreq)
+	resp, err := c.Do(authReq.WithContext(ctx))
 	if err != nil {
 		return "", nil, err
 	}
@@ -120,6 +116,8 @@ type authService struct {
 }
 
 func (a *authService) Request(username, password string) (*http.Request, error) {
+	fmt.Println()
+	fmt.Fprintf(os.Stdout, "URL: %s\n", a.Realm.String())
 	q := a.Realm.Query()
 	q.Set("service", a.Service)
 	for _, s := range a.Scope {
