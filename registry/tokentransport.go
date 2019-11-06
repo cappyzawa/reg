@@ -62,7 +62,9 @@ func (t authToken) String() (string, error) {
 
 func (t *TokenTransport) authAndRetry(authService *authService, req *http.Request) (*http.Response, error) {
 	token, authResp, err := t.auth(req.Context(), authService)
+	fmt.Fprintf(os.Stdout, "token: %s\n", token)
 	if err != nil {
+		fmt.Fprintf(os.Stdout, "err: %v\n", err)
 		return authResp, err
 	}
 
